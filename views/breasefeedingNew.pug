@@ -21,7 +21,8 @@ block content
     div.form-group
       div ◆ミルク（ml）
       select(name="milk")
-       - for (var x = 8; x <= 24; x++)
+        option(value="0") 0ml
+        - for (var x = 1; x <= 24; x++)
           option(value=`${x*10}`) #{x*10}ml
     div.form-group
         label(for="interval1") ◆メモ

@@ -3,7 +3,9 @@ extends layout
 block content
   div.jumbotron.my-3
     h1.display-4 AkaReco
-    p.lead AkaRecoは赤ちゃんの日常を記録するサービスです。<br>授乳やオムツ替え記録を残すことができます。<br>↓　Let's TRY!　↓
+    p.lead AkaRecoは赤ちゃんの日常を記録するサービスです。<br>授乳やオムツ替え記録を残すことができます。<br>
+      if !user
+        a(href="/login").btn.btn-info.my-3 ログインはこちら
   if user
     - var hasBaby = babies.length > 0
     if hasBaby
