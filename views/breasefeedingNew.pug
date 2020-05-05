@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  div.my-3 #{baby.babyName}の授乳記録を追加
+  form(action=`/babies/${baby.babyId}/breasefeedings/new`, method="post").my-3
+    input(type="hidden" name="_csrf" value!=csrfToken)
+    div.form-group
+      div ◆授乳終了時間
+      input(type="date" name="date" style="width: 18rem;")#date.form-control
+      input(type="time" name="time" style="width: 18rem;")#time.form-control
+    div.form-group
+      div ◆右授乳時間（min）
+      select(name="rightMinutes")
+       - for (var x = 0; x < 30; x++)
+          option(value=`${x}`) #{x}分
+    div.form-group
+      div ◆左授乳時間（min）
+      select(name="leftMinutes")
+       - for (var x = 0; x < 30; x++)
+          option(value=`${x}`) #{x}分
+    div.form-group
+      div ◆ミルク（ml）
+      select(name="milk")
+       - for (var x = 8; x <= 24; x++)
+          option(value=`${x*10}`) #{x*10}ml
+    div.form-group
+        label(for="interval1") ◆メモ
+        textarea(name="memo", cols="15", rows="5" style="width: 18rem;")#interval.form-control
+    button(type="submit" ).btn.btn-info 追加

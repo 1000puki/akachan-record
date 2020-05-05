@@ -1,0 +1,7 @@
+{
+  "name": "akachan-record",
+  "description": "AkaReco",
+  "logo": "",
+  "keywords": "[node]",
+  "image": "heroku/nodejs"
+}

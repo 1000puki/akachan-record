@@ -1,0 +1,67 @@
+extends layout
+
+block content
+  h3.my-3 #{baby.babyName} の記録
+  div.row
+    div.col-sm-6
+      div.card
+        div.card-body
+          h4.card-title 授乳記録を追加
+          p.card-text 授乳 or ミルクの記録を追加できます.
+          a(href=`/babies/${baby.babyId}/breasefeedings/new`).btn.btn-info 記録をつける
+    div.col-sm-6
+      div.card
+        div.card-body
+          h4.card-title オムツ記録を追加
+          p.card-text オムツ替えの記録を追加できます.
+          a(href=`/babies/${baby.babyId}/dipers/new`).btn.btn-info 記録をつける
+  br
+  div.card.bg-light.mb-3
+    div.card-header 次の授乳予定時間
+    div.card-body
+      h5.card-header #{breasefeedingNext}
+      p.card-text 間の時間で、哺乳瓶洗浄・ごはん準備・お風呂準備etc...やることを考えておこう！
+  div
+    h3.my-3 授乳記録
+    table.table.table-bordered
+      tr
+        th 授乳時刻
+        th 右（minute）
+        th 左（minute）
+        th ミルク（ml）
+        th メモ
+        th 修正
+      - var hasBreasefeedings = breasefeedings.length > 0
+      if hasBreasefeedings
+      each breasefeeding in breasefeedings
+        tr
+          td #{breasefeeding.formatday}
+          td #{breasefeeding.rightMinutes}
+          td #{breasefeeding.leftMinutes}
+          td #{breasefeeding.milk}
+          td #{breasefeeding.memo}
+          td 
+            a(href=`/babies/${baby.babyId}/breasefeedings/${breasefeeding.breasefeedingId}/edit`).btn.btn-info 編集・削除
+      else
+        p 授乳記録がありません.
+  div
+    h3.my-3 オムツ記録
+    table.table.table-bordered
+      tr
+        th オムツ替え時間
+        th おしっこ・うんち
+        th メモ
+        th 修正
+      - var hasDipers = dipers.length > 0
+      if hasDipers 
+        each diper in dipers
+          tr
+            td #{diper.formatday}
+            td #{diper.formatpeepooType}
+            td #{diper.memo}
+            td 
+              a(href=`/babies/${baby.babyId}/dipers/${diper.diperId}/edit`).btn.btn-info 編集・削除
+      else
+        p オムツ記録がありません.
+ 
+

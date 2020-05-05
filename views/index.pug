@@ -1,5 +1,26 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  div.jumbotron.my-3
+    h1.display-4 AkaReco
+    p.lead AkaRecoは赤ちゃんの日常を記録するサービスです。<br>授乳やオムツ替え記録を残すことができます。<br>↓　Let's TRY!　↓
+  if user
+    - var hasBaby = babies.length > 0
+    if hasBaby
+      h2.my-2 ◆赤ちゃんの記録を追加する
+        each baby in babies
+          div(style="width: 18rem;").card
+            - var isBoy = (baby.sex === 0)
+            if isBoy 
+              div.card-header #{baby.babyName} くん
+            else
+              div.card-header #{baby.babyName} ちゃん
+            ul.list-group.listgroup-flush
+              li.list-group-item
+                a(href=`/babies/${baby.babyId}`).btn.btn-info.my-3 記録一覧
+              li.list-group-item
+                a(href=`/babies/${baby.babyId}/edit`).btn.btn-primary.my-3 基本情報を編集
+    div
+      h2.my-2 ◆赤ちゃんを新規登録する
+        div
+          a(href="/babies/new").btn.btn-info.my-3 新規登録

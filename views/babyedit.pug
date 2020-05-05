@@ -1,0 +1,35 @@
+extends layout
+
+block content
+  h3.my-3 赤ちゃんの基本情報編集
+  hr
+  form(action=`/babies/${baby.babyId}?edit=1`, method="post")
+    input(type="hidden" name="_csrf" value!=csrfToken)
+    div.form-group
+      label(for="babyName") 名前
+      input(type="text" name="babyName" value=baby.babyName)#babyName.form-control
+    div.form-group
+      div ◆性別
+      div.radio
+      - var isBoy = (baby.sex === 0)
+        label(for="babySex1") 男の子
+        if isBoy
+          input#babySex1(type="radio" name="sex" value="0" checked=true)
+        else
+          input#babySex1(type="radio" name="sex" value="0" checked=false)
+      div.radio
+        label(for="babySex2") 女の子
+        if isBoy
+          input#babySex2(type="radio" name="sex" value="1" checked=false)
+        else
+          input#babySex2(type="radio" name="sex" value="1" checked=true)          
+    div.form-group
+        label(for="interval1") ◆授乳間隔（時間）
+        input(type="text" name="interval" placeholder="時間（H）単位で入力" value=baby.interval )#interval.form-control
+    div
+      button(type="submit").btn.btn-info 基本情報を更新
+  hr
+  h3.my-3 全記録の削除
+    form(action=`/babies/${baby.babyId}?delete=1`, method="post")
+      input(type="hidden" name="_csrf" value!=csrfToken)
+      button(type="submit").btn.btn-danger #{baby.babyName}の情報を削除する

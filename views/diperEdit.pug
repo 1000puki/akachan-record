@@ -1,0 +1,41 @@
+extends layout
+
+block content
+  h3.my-3 オムツ替え記録の編集
+  hr
+  form(action=`/babies/${baby.babyId}/dipers/${diper.diperId}/?edit=1`, method="post")
+    input(type="hidden" name="_csrf" value!=csrfToken)
+    div.form-group
+      div ◆オムツ替え時間
+      input(type="date" name="date" style="width: 18rem;" value=`${formatday}`)#editdate.form-control
+      input(type="time" name="time" style="width: 18rem;" value=`${time}`)#edittime.form-control
+    div.form-group
+      div ◆オムツ替え理由
+      div.radio
+        label(for="pee") おしっこ
+        if parseInt(diper.peepooType) === 0
+          input#peepooType1(type="radio" name="peepooType" value="0" checked=true)
+        else 
+          input#peepooType1(type="radio" name="peepooType" value="0" checked=false)
+      div.radio
+        label(for="poo") うんち
+        if parseInt(diper.peepooType) === 1
+          input#peepooType2(type="radio" name="peepooType" value="1" checked=true)
+        else
+          input#peepooType2(type="radio" name="peepooType" value="1" checked=false)        
+      div.radio
+        label(for="peepoo") 両方
+        if parseInt(diper.peepooType) === 2
+          input#peepooType3(type="radio" name="peepooType" value="2" checked=true)
+        else
+          input#peepooType3(type="radio" name="peepooType" value="2" checked=false)        
+    div.form-group
+        label(for="interval1") ◆メモ
+        textarea(name="memo", cols="15", rows="5" style="width: 18rem;")#interval.form-control #{diper.memo}
+    div
+      button(type="submit").btn.btn-info 更新
+  hr
+  h3.my-3 記録削除
+    form(action=`/babies/${baby.babyId}/dipers/${diper.diperId}?delete=1`, method="post")
+      input(type="hidden" name="_csrf" value!=csrfToken)
+      button(type="submit").btn.btn-danger この記録を削除する

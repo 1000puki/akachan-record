@@ -1,0 +1,45 @@
+extends layout
+
+block content
+  h3.my-3 授乳記録の編集
+  hr
+  form(action=`/babies/${baby.babyId}/breasefeedings/${breasefeeding.breasefeedingId}/?edit=1`, method="post")
+    input(type="hidden" name="_csrf" value!=csrfToken)
+    div.form-group
+      div ◆授乳終了時間
+      input(type="date" name="date" style="width: 18rem;" value=`${formatday}`)#editdate.form-control
+      input(type="time" name="time" style="width: 18rem;" value=`${time}`)#edittime.form-control
+    div.form-group
+      div ◆右授乳時間（min）
+      select(name="rightMinutes")
+       - for (var x = 0; x < 30; x++)
+          if parseInt(breasefeeding.rightMinutes) === x
+            option(value=`${x}` selected) #{x}分
+          else
+            option(value=`${x}`) #{x}分
+    div.form-group
+      div ◆左授乳時間（min）
+      select(name="leftMinutes")
+       - for (var x = 0; x < 30; x++)
+          if parseInt(breasefeeding.leftMinutes) === x
+            option(value=`${x}` selected) #{x}分
+          else 
+            option(value=`${x}`) #{x}分
+    div.form-group
+      div ◆ミルク（ml）
+      select(name="milk")
+       - for (var x = 8; x <= 24; x++)
+          if parseInt(breasefeeding.milk) === (x*10)
+            option(value=`${x*10}` selected) #{x*10}ml
+          else
+            option(value=`${x*10}`) #{x*10}ml
+    div.form-group
+        label(for="interval1") ◆メモ
+        textarea(name="memo", cols="15", rows="5" style="width: 18rem;" )#interval.form-control #{breasefeeding.memo}
+    div
+      button(type="submit").btn.btn-info 更新
+  hr
+  h3.my-3 記録削除
+    form(action=`/babies/${baby.babyId}/breasefeedings/${breasefeeding.breasefeedingId}?delete=1`, method="post")
+      input(type="hidden" name="_csrf" value!=csrfToken)
+      button(type="submit").btn.btn-danger この記録を削除する
