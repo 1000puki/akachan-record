@@ -241,7 +241,7 @@ router.post('/', authenticationEnsurer, csrfProtection,(req, res, next) => {
     interval: intervalParam,
     updateAt: updateAt
   }).then((baby) => {
-    res.redirect('/babies/' + baby.babyId);
+    res.redirect('/');
   });
 });
 
